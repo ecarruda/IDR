@@ -1,0 +1,5 @@
+add_executable(kbbuilder_tests kb_tool_test.cpp)
+target_link_libraries(kbbuilder_tests PRIVATE kbbuilder_core GTest::gtest_main)
+target_compile_definitions(kbbuilder_tests PRIVATE IDR_REPO_ROOT="${CMAKE_SOURCE_DIR}")
+include(GoogleTest)
+gtest_discover_tests(kbbuilder_tests TEST_PREFIX "kbbuilder.")

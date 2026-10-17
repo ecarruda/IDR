@@ -1,0 +1,5 @@
+add_executable(idr_cli_tests cli_test.cpp)
+target_link_libraries(idr_cli_tests PRIVATE idr_cli_core idr_test_support GTest::gtest_main)
+target_compile_definitions(idr_cli_tests PRIVATE IDR_REPO_ROOT="${CMAKE_SOURCE_DIR}")
+include(GoogleTest)
+gtest_discover_tests(idr_cli_tests TEST_PREFIX "idr_cli.")

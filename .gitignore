@@ -429,3 +429,5 @@ FodyWeavers.xsd
 
 *.~*
 *.ddp
+.worktrees/
+build/

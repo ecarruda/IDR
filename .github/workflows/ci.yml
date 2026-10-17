@@ -1,0 +1,20 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake --preset windows-x64-debug
+
+      - name: Build
+        run: cmake --build --preset windows-x64-debug
+
+      - name: Test
+        run: ctest --preset windows-x64-debug
