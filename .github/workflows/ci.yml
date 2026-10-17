@@ -6,9 +6,9 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2022
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Configure
         run: cmake --preset windows-x64-debug
@@ -18,3 +18,33 @@ jobs:
 
       - name: Test
         run: ctest --preset windows-x64-debug
+
+      - name: Upload artifacts
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: idr-reborn-windows-x64-debug
+          path: |
+            build/windows-x64-debug/apps/idr-cli/Debug/idr_cli.exe
+            build/windows-x64-debug/apps/kbbuilder/Debug/kbbuilder.exe
+          if-no-files-found: warn
+
+  release:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Configure
+        run: cmake --preset windows-x64-release
+
+      - name: Build
+        run: cmake --build --preset windows-x64-release
+
+      - name: Upload release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: idr-reborn-windows-x64-release
+          path: |
+            build/windows-x64-release/apps/idr-cli/Release/idr_cli.exe
+            build/windows-x64-release/apps/kbbuilder/Release/kbbuilder.exe
+          if-no-files-found: warn
